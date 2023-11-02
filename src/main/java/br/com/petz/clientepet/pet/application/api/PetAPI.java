@@ -18,6 +18,6 @@ public interface PetAPI {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	PetResponse postPet(@PathVariable(value = "idCliente") UUID idCliente, @RequestBody @Valid PetRequest petRequest);
+	PetIdResponse postPet(@PathVariable(value = "idCliente") UUID idCliente, @RequestBody @Valid PetRequest petRequest);
 
 }
