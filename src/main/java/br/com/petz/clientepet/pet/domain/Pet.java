@@ -26,9 +26,9 @@ public class Pet {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", updatable = false, unique = true, nullable = false)
+	@Column(name = "idPet", updatable = false, unique = true, nullable = false)
 	private UUID idPet;
-	@Column(name = "id", updatable = false, unique = true, nullable = false)
+	@Column(name = "idCliente", updatable = false, unique = true, nullable = false)
 	private UUID idCliente;
 	@NotBlank
 	private String nomePet;
@@ -47,5 +47,6 @@ public class Pet {
 	private int peso;
 
 	private LocalDateTime momentoDoDacastro;
-	private LocalDateTime dataHoraDaultimaAlteracao;	
+	private LocalDateTime dataHoraDaultimaAlteracao;
+	
 }
