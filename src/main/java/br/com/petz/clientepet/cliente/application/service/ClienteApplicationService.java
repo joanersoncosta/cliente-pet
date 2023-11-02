@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import br.com.petz.clientepet.cliente.application.api.ClienteAlteracaoRequest;
 import br.com.petz.clientepet.cliente.application.api.ClienteDetalhadoResponse;
 import br.com.petz.clientepet.cliente.application.api.ClienteListResponse;
 import br.com.petz.clientepet.cliente.application.api.ClienteRequest;
@@ -56,5 +57,15 @@ public class ClienteApplicationService implements ClienteService {
 				() -> APIException.build(HttpStatus.NOT_FOUND, "Cliente não encontrado!") );
 		clienteRepository.deletaClientePorId(cliente);
 		log.info("[finaliza] ClienteApplicationService - deletaClientePorId");
+	}
+
+	@Override
+	public void alteraClientePorId(ClienteAlteracaoRequest clienteRequest, UUID idCliente) {
+		log.info("[inicia] ClienteApplicationService - alteraClientePorId");
+		Cliente cliente = clienteRepository.buscaClientePorId(idCliente).orElseThrow(
+				() -> APIException.build(HttpStatus.NOT_FOUND, "Cliente não encontrado!") );
+		cliente.altera(clienteRequest);
+		clienteRepository.salva(cliente);
+		log.info("[finaliza] ClienteApplicationService - alteraClientePorId");
 	}
 }
