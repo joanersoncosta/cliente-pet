@@ -10,6 +10,8 @@ import br.com.petz.clientepet.cliente.application.api.ClienteAlteracaoRequest;
 import br.com.petz.clientepet.cliente.application.api.ClienteRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,14 +35,17 @@ public class Cliente {
 	private String nomeCompleto;
 	@NotBlank
 	@Email
+	@Column(unique = true)
 	private String email;
 	@NotBlank
 	private String celular;
 	private String telefone;
+	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
 	@NotNull
 	private LocalDate dataNascimento;
 	@CPF
+	@Column(unique = true)
 	private String cpf;
 	@NotNull
 	private Boolean aceitaTermos;
@@ -60,10 +65,12 @@ public class Cliente {
 	}
 	
 	public void altera(ClienteAlteracaoRequest clienteRequest) {
-		this.idCliente = clienteRequest.getIdCliente();
 		this.nomeCompleto = clienteRequest.getNomeCompleto();
-		this.email = clienteRequest.getEmail();
-		this.cpf = clienteRequest.getCpf();
 		this.celular = clienteRequest.getCelular();
+		this.telefone = clienteRequest.getTelefone();
+		this.sexo = clienteRequest.getSexo();
+		this.dataNascimento = clienteRequest.getDataNascimento();
+		this.celular = clienteRequest.getCelular();
+		this.dataHoraDaultimaAlteracao = LocalDateTime.now();
 	}
 }
