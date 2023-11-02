@@ -70,7 +70,7 @@ public class Cliente {
 		this.telefone = clienteRequest.getTelefone();
 		this.sexo = clienteRequest.getSexo();
 		this.dataNascimento = clienteRequest.getDataNascimento();
-		this.celular = clienteRequest.getCelular();
+		this.aceitaTermos = clienteRequest.getAceitaTermos();
 		this.dataHoraDaultimaAlteracao = LocalDateTime.now();
 	}
 }
