@@ -48,4 +48,13 @@ public class ClienteApplicationService implements ClienteService {
 		log.info("[finaliza] ClienteApplicationService - buscaClientePorId");
 		return new ClienteDetalhadoResponse(cliente);
 	}
+
+	@Override
+	public void deletaClientePorId(UUID idCliente) {
+		log.info("[inicia] ClienteApplicationService - deletaClientePorId");
+		Cliente cliente = clienteRepository.buscaClientePorId(idCliente).orElseThrow(
+				() -> APIException.build(HttpStatus.NOT_FOUND, "Cliente não encontrado!") );
+		clienteRepository.deletaClientePorId(cliente);
+		log.info("[finaliza] ClienteApplicationService - deletaClientePorId");
+	}
 }
