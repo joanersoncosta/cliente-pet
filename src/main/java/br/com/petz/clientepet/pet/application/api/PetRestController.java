@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.petz.clientepet.cliente.application.api.ClienteDetalhadoResponse;
 import br.com.petz.clientepet.pet.application.service.PetService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,15 @@ public class PetRestController implements PetAPI {
 		List<PetClienteListResponse> petsDoCliente = petService.buscaPetsDoCliente(idCliente);
 		log.info("[finaliza] PetRestController - getPetsDoCliente");
 		return petsDoCliente;
+	}
+
+	@Override
+	public PetDetalhadoResponse buscaPetPorId(UUID idCliente, UUID idPet) {
+		log.info("[inicia] PetRestController - buscaPetPorId");
+		log.info("[idCliente] {}", idCliente);
+		PetDetalhadoResponse petResponse = petService.buscaPetDoCliente(idCliente, idPet);
+		log.info("[finaliza] PetRestController - buscaPetPorId");
+		return petResponse;
 	}
 
 }
