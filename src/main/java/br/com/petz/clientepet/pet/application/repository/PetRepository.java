@@ -8,6 +8,6 @@ import br.com.petz.clientepet.pet.domain.Pet;
 public interface PetRepository {
 
 	Pet salvaPet(Pet pet);
-	List<Pet> buscaPetsDoCliente(UUID idCliente);
+	List<Pet> buscaPetsDoCliente();
 
 }
