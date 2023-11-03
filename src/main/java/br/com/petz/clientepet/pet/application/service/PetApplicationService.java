@@ -3,9 +3,11 @@ package br.com.petz.clientepet.pet.application.service;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import br.com.petz.clientepet.cliente.application.service.ClienteService;
+import br.com.petz.clientepet.handler.APIException;
 import br.com.petz.clientepet.pet.application.api.PetClienteListResponse;
 import br.com.petz.clientepet.pet.application.api.PetDetalhadoResponse;
 import br.com.petz.clientepet.pet.application.api.PetIdResponse;
@@ -47,8 +49,10 @@ public class PetApplicationService implements PetService {
 		log.info("[inicia] PetApplicationService - buscaPetDoCliente");
 		log.info("[idCliente] {}, [idCliente] {}", idCliente, idPet);
 		clienteService.buscaClientePorId(idCliente);
+		Pet pet = petRepository.buscaPetDoCliente(idPet).orElseThrow(
+				() -> APIException.build(HttpStatus.NOT_FOUND, "Pet não encontrado!"));
 		log.info("[finaliza] PetApplicationService - buscaPetDoCliente");
-		return null;
+		return new PetDetalhadoResponse(pet);
 	}
 
 }

@@ -1,6 +1,7 @@
 package br.com.petz.clientepet.pet.infra;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
@@ -30,6 +31,14 @@ public class PetInfraRepository implements PetRepository {
 		var pets = petSpringDataJPARepository.findAll();
 		log.info("[finaliza] PetInfraRepository - buscaPetsDoCliente");
 		return pets;
+	}
+
+	@Override
+	public Optional<Pet> buscaPetDoCliente(UUID idPet) {
+		log.info("[inicia] PetInfraRepository - buscaPetDoCliente");
+		var pet = petSpringDataJPARepository.findById(idPet);
+		log.info("[finaliza] PetInfraRepository - buscaPetDoCliente");
+		return pet;
 	}
 
 }
