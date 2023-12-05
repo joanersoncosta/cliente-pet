@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,4 +32,7 @@ public interface PetAPI {
 	@ResponseStatus(value = HttpStatus.OK)
 	PetDetalhadoResponse buscaPetPorId(@PathVariable(value = "idCliente") UUID idCliente, @PathVariable(value = "idPet") UUID idPet);
 
+	@DeleteMapping(value = "/{idPet}")
+	@ResponseStatus(value = HttpStatus.NO_CONTENT)
+	void deletaPetPorId(@PathVariable(value = "idCliente") UUID idCliente, @PathVariable(value = "idPet") UUID idPet);
 }

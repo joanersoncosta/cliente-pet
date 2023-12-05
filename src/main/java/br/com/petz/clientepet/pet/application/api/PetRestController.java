@@ -44,4 +44,11 @@ public class PetRestController implements PetAPI {
 		return petResponse;
 	}
 
+	@Override
+	public void deletaPetPorId(UUID idCliente, UUID idPet) {
+		log.info("[inicia] PetRestController - deletaPetPorId");
+		log.info("[idCliente] {}, [idPet] {}", idCliente, idPet);
+		log.info("[finaliza] PetRestController - deletaPetPorId");
+	}
+
 }
