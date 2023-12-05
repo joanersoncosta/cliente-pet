@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import br.com.petz.clientepet.cliente.application.api.ClienteDetalhadoResponse;
 import br.com.petz.clientepet.cliente.application.service.ClienteService;
 import br.com.petz.clientepet.handler.APIException;
+import br.com.petz.clientepet.pet.application.api.PetAlteracaoRequest;
 import br.com.petz.clientepet.pet.application.api.PetClienteListResponse;
 import br.com.petz.clientepet.pet.application.api.PetDetalhadoResponse;
 import br.com.petz.clientepet.pet.application.api.PetIdResponse;
@@ -48,7 +49,7 @@ public class PetApplicationService implements PetService {
 	@Override
 	public PetDetalhadoResponse buscaPetDoCliente(UUID idCliente, UUID idPet) {
 		log.info("[inicia] PetApplicationService - buscaPetDoCliente");
-		log.info("[idCliente] {}, [idCliente] {}", idCliente, idPet);
+		log.info("[idCliente] {}, [idPet] {}", idCliente, idPet);
 		clienteService.buscaClientePorId(idCliente);
 		Pet pet = petRepository.buscaPetDoCliente(idPet).orElseThrow(
 				() -> APIException.build(HttpStatus.NOT_FOUND, "Pet não encontrado!"));
@@ -59,13 +60,20 @@ public class PetApplicationService implements PetService {
 	@Override
 	public void deletaPetPorId(UUID idCliente, UUID idPet) {
 		log.info("[inicia] PetApplicationService - deletaPetPorId");
-		log.info("[idCliente] {}, [idCliente] {}", idCliente, idPet);
+		log.info("[idCliente] {}, [idPet] {}", idCliente, idPet);
 		ClienteDetalhadoResponse cliente = clienteService.buscaClientePorId(idCliente);
 		Pet pet = petRepository.buscaPetDoCliente(idPet).orElseThrow(
 				() -> APIException.build(HttpStatus.NOT_FOUND, "Pet não encontrado!"));
 		pet.pertenceUsuario(cliente);
 		petRepository.deletaPetPorId(idPet);
 		log.info("[finaliza] PetApplicationService - deletaPetPorId");
+	}
+
+	@Override
+	public void patchPetPorId(PetAlteracaoRequest petRequest, UUID idCliente, UUID idPet) {
+		log.info("[inicia] PetApplicationService - patchPetPorId");
+		log.info("[idCliente] {}, [idPet] {}", idCliente, idPet);
+		log.info("[finaliza] PetApplicationService - patchPetPorId");
 	}
 
 }
