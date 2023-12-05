@@ -1,0 +1,12 @@
+server:
+  servlet:
+    context-path: /client-pet/api
+    
+    
+    
+    
+    
+    
+    
+    
+    
