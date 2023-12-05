@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import br.com.petz.clientepet.cliente.application.api.ClienteDetalhadoResponse;
 import br.com.petz.clientepet.cliente.application.service.ClienteService;
 import br.com.petz.clientepet.handler.APIException;
 import br.com.petz.clientepet.pet.application.api.PetClienteListResponse;
@@ -53,6 +54,18 @@ public class PetApplicationService implements PetService {
 				() -> APIException.build(HttpStatus.NOT_FOUND, "Pet não encontrado!"));
 		log.info("[finaliza] PetApplicationService - buscaPetDoCliente");
 		return new PetDetalhadoResponse(pet);
+	}
+
+	@Override
+	public void deletaPetPorId(UUID idCliente, UUID idPet) {
+		log.info("[inicia] PetApplicationService - deletaPetPorId");
+		log.info("[idCliente] {}, [idCliente] {}", idCliente, idPet);
+		ClienteDetalhadoResponse cliente = clienteService.buscaClientePorId(idCliente);
+		Pet pet = petRepository.buscaPetDoCliente(idPet).orElseThrow(
+				() -> APIException.build(HttpStatus.NOT_FOUND, "Pet não encontrado!"));
+		pet.pertenceUsuario(cliente);
+		petRepository.deletaPetPorId(idPet);
+		log.info("[finaliza] PetApplicationService - deletaPetPorId");
 	}
 
 }

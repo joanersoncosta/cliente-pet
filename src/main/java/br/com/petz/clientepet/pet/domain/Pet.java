@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
+
+import br.com.petz.clientepet.cliente.application.api.ClienteDetalhadoResponse;
+import br.com.petz.clientepet.handler.APIException;
 import br.com.petz.clientepet.pet.application.api.PetRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -64,5 +68,11 @@ public class Pet {
 		this.rga = petRequest.getRga();
 		this.peso = petRequest.getPeso();
 		this.momentoDoDacastro = LocalDateTime.now();
+	}
+
+	public void pertenceUsuario(ClienteDetalhadoResponse cliente) {
+			if(!idClienteTutor.equals(cliente.getIdCliente())) {
+				APIException.build(HttpStatus.UNAUTHORIZED, "Usuário não é o dono do Pet");
+			}
 	}
 }

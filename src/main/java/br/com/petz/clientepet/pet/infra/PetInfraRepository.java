@@ -16,7 +16,7 @@ import lombok.extern.log4j.Log4j2;
 @RequiredArgsConstructor
 public class PetInfraRepository implements PetRepository {
 	private final PetSpringDataJPARepository petSpringDataJPARepository;
-	
+
 	@Override
 	public Pet salvaPet(Pet pet) {
 		log.info("[inicia] PetInfraRepository - salvaPet");
@@ -41,4 +41,10 @@ public class PetInfraRepository implements PetRepository {
 		return pet;
 	}
 
+	@Override
+	public void deletaPetPorId(UUID idPet) {
+		log.info("[inicia] PetInfraRepository - deletaPetPorId");
+		petSpringDataJPARepository.deleteById(idPet);
+		log.info("[finaliza] PetInfraRepository - deletaPetPorId");
+	}
 }

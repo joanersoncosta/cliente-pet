@@ -48,6 +48,7 @@ public class PetRestController implements PetAPI {
 	public void deletaPetPorId(UUID idCliente, UUID idPet) {
 		log.info("[inicia] PetRestController - deletaPetPorId");
 		log.info("[idCliente] {}, [idPet] {}", idCliente, idPet);
+		petService.deletaPetPorId(idCliente, idPet);
 		log.info("[finaliza] PetRestController - deletaPetPorId");
 	}
 
