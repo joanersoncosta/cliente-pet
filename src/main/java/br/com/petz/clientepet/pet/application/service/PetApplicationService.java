@@ -73,7 +73,12 @@ public class PetApplicationService implements PetService {
 	public void patchPetPorId(PetAlteracaoRequest petRequest, UUID idCliente, UUID idPet) {
 		log.info("[inicia] PetApplicationService - patchPetPorId");
 		log.info("[idCliente] {}, [idPet] {}", idCliente, idPet);
+		ClienteDetalhadoResponse cliente = clienteService.buscaClientePorId(idCliente);
+		Pet pet = petRepository.buscaPetDoCliente(idPet).orElseThrow(
+				() -> APIException.build(HttpStatus.NOT_FOUND, "Pet não encontrado!"));
+		pet.pertenceUsuario(cliente);
+		pet.altera(petRequest);
+		petRepository.salvaPet(pet);
 		log.info("[finaliza] PetApplicationService - patchPetPorId");
 	}
-
 }

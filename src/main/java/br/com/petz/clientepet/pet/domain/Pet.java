@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 
 import br.com.petz.clientepet.cliente.application.api.ClienteDetalhadoResponse;
 import br.com.petz.clientepet.handler.APIException;
+import br.com.petz.clientepet.pet.application.api.PetAlteracaoRequest;
 import br.com.petz.clientepet.pet.application.api.PetRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -55,7 +56,7 @@ public class Pet {
 
 	private LocalDateTime momentoDoDacastro;
 	private LocalDateTime dataHoraDaultimaAlteracao;
-	
+
 	public Pet(UUID idCliente, PetRequest petRequest) {
 		this.nomePet = petRequest.getNomePet();
 		this.porte = petRequest.getPorte();
@@ -71,8 +72,22 @@ public class Pet {
 	}
 
 	public void pertenceUsuario(ClienteDetalhadoResponse cliente) {
-			if(!idClienteTutor.equals(cliente.getIdCliente())) {
-				APIException.build(HttpStatus.UNAUTHORIZED, "Usuário não é o dono do Pet");
-			}
+		if (!idClienteTutor.equals(cliente.getIdCliente())) {
+			APIException.build(HttpStatus.UNAUTHORIZED, "Usuário não é o dono do Pet");
+		}
+	}
+
+	public void altera(PetAlteracaoRequest petRequest) {
+		this.nomePet = petRequest.getNomePet();
+		this.porte = petRequest.getPorte();
+		this.tipo = petRequest.getTipo();
+		this.microShip = petRequest.getMicroShip();
+		this.raca = petRequest.getRaca();
+		this.sexo = petRequest.getSexo();
+		this.pelagemCor = petRequest.getPelagemCor();
+		this.dataNascimento = petRequest.getDataNascimento();
+		this.rga = petRequest.getRga();
+		this.peso = petRequest.getPeso();
+		this.dataHoraDaultimaAlteracao = LocalDateTime.now();
 	}
 }
